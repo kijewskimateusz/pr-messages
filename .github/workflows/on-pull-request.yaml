@@ -35,11 +35,12 @@ jobs:
           exit 1
       
       # Write brief job summary as comment to PR
-      - uses: actions/github-script@v6
+      - name: Comment issue
+        uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.MY_PAT }}
           script: |
-            const output = `## Application deployment summary
+            const output = `## Feature check
             #### First check 💼 \`${{ steps.step-one.outcome }}\`
             #### Second check 🔑 \`${{ steps.step-two.outcome }}\`
             #### Third check 🚀 \`${{ steps.step-three.outcome }}\`
