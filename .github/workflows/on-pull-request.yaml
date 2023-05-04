@@ -1,0 +1,55 @@
+name: on Pull Request
+
+on: # Every job to have separate if statement  
+  pull_request:
+
+jobs:
+  do something:
+    name: Do something job
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: First step 
+        id: step-one
+        continue-on-error: true
+        run: |
+          echo Foo
+      
+      - name: Second step 
+        id: step-two
+        continue-on-error: true
+        run: |
+          echo Bar
+      
+      - name: Third step 
+        id: step-three
+        continue-on-error: true
+        run: |
+          echo Baz
+          exit 1
+      
+      # Write brief job summary as comment to PR
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const output = `## Application deployment summary
+            #### First check 💼 \`${{ steps.step-one.outcome }}\`
+            #### Second check 🔑 \`${{ steps.step-two.outcome }}\`
+            #### Third check 🚀 \`${{ steps.step-three.outcome }}\`
+            `;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+      
+      - name: Check for failed steps
+        if: steps.step-one.outcome == 'failure' || steps.step-two.outcome == 'failure' || steps.step-three.outcome == 'failure'
+        run: exit 1
