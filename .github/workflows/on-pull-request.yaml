@@ -4,7 +4,7 @@ on: # Every job to have separate if statement
   pull_request:
 
 jobs:
-  do something:
+  do-something:
     name: Do something job
     runs-on: ubuntu-latest
     defaults:
