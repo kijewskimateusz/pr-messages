@@ -135,6 +135,9 @@ jobs:
 
       - name: Get context 
         run: echo ${{needs.do-something-more-again.outputs}}
+      
+      - name: Get context 
+        run: echo ${{toJSON(needs.do-something-more-again.outputs)}}
 
       - name: Get context 
         run: echo ${{needs.do-something-more-again.outputs.output1}}
