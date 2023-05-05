@@ -118,9 +118,9 @@ jobs:
         with:
           script: |
             const output = `## Feature check
-            #### First check 💼 \`${{ jobs.do-something.result }}\`
-            #### Second check 🔑 \`${{ jobs.do-something-more.result }}\`
-            #### Third check 🚀 \`${{ jobs.do-something-more-again.result }}\`
+            #### First check 💼 \`${{ do-something.result }}\`
+            #### Second check 🔑 \`${{ do-something-more.result }}\`
+            #### Third check 🚀 \`${{ do-something-more-again.result }}\`
             `;
             github.rest.issues.createComment({
               issue_number: context.issue.number,
