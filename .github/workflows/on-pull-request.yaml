@@ -58,15 +58,69 @@ jobs:
       - name: Get result
         run: echo "${{steps.set-result.outputs.result}}"
 
+  do-something-more:
+    name: Do something job
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: First step 
+        id: step-one
+        run: |
+          echo Foo
+  
+  do-something-more-again:
+    name: Do something job
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: First step 
+        id: step-one
+        run: |
+          echo Foo
+          exit 1
+  
+  do-something-different:
+    name: Do something job
+    needs:
+      - do-something
+      - do-something-more
+      - do-something-more-again
+
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       # Write brief job summary as comment to PR
       - name: Comment issue
         uses: actions/github-script@v6
         with:
           script: |
             const output = `## Feature check
-            #### First check 💼 \`${{ steps.step-one.outcome }}\`
-            #### Second check 🔑 \`${{ steps.step-two.outcome }}\`
-            #### Third check 🚀 \`${{ steps.step-three.outcome }}\`
+            #### First check 💼 \`${{ jobs.do-something.result }}\`
+            #### Second check 🔑 \`${{ jobs.do-something-more.result }}\`
+            #### Third check 🚀 \`${{ jobs.do-something-more-again.result }}\`
             `;
             github.rest.issues.createComment({
               issue_number: context.issue.number,
