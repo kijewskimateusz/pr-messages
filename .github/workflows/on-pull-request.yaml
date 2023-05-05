@@ -197,7 +197,7 @@ jobs:
         script: |
           const { STAT } = process.env
           const output = `## Feature check
-          #### First check 💼 \`${{ STAT }}\`
+          #### First check 💼 \`${STAT}\`
           `;
           github.rest.issues.createComment({
             issue_number: context.issue.number,
