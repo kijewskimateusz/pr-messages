@@ -101,7 +101,8 @@ jobs:
         run: echo '${{ steps.step-one.outcome }}' >> $GITHUB_OUTPUT
 
       - name: Print status
-        run: echo "STATUS='${{ steps.step-one.outcome }}'" >> $GITHUB_OUTPUT
+        run: echo "STATUS=failure" >> $GITHUB_OUTPUT
+        if: ${{ steps.step-one.outcome }} != 'success'
   
   do-something-different:
     name: Do something job
