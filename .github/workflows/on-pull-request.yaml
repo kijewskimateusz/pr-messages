@@ -134,6 +134,9 @@ jobs:
         run: echo ${{needs.do-something-more-again.result}}
 
       - name: Get context 
+        run: echo ${{needs.do-something-more-again.outputs}}
+
+      - name: Get context 
         run: echo ${{needs.do-something-more-again.outputs.output1}}
       
       - name: Get context 
