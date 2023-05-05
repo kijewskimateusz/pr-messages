@@ -36,6 +36,18 @@ jobs:
           echo Baz
           exit 1
       
+      - name: Get context 
+        run: echo "$GITHUB_CONTEXT"
+   
+      - name: Get result 1
+        run: echo "${{steps.step-one.outputs.result}}"
+      
+      - name: Get result 2
+        run: echo "${{steps.step-one.outputs}}"
+
+      - name: Get result 3
+        run: echo "${{steps.step-one}}"
+
       # Write brief job summary as comment to PR
       - name: Comment issue
         uses: actions/github-script@v6
