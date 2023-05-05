@@ -176,8 +176,12 @@ jobs:
       output1: ${{ steps.step1.outputs.test }}
       output2: ${{ steps.step2.outputs.test }}
     steps:
+    - id: step0
+      run: echo foo
+    - id: check
+      run: echo '${{ steps.step0.outcome }}'
     - id: step1
-      run: echo "test='${{ steps.step1.outcome }}'" >> $GITHUB_OUTPUT
+      run: echo "test='${{ steps.check.outcome }}'" >> $GITHUB_OUTPUT
     - id: step2
       run: echo "test=world" >> $GITHUB_OUTPUT
   job2:
