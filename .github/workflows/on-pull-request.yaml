@@ -34,7 +34,6 @@ jobs:
         continue-on-error: true
         run: |
           echo Baz
-          exit 1
       
       - name: Get context 
         run: echo "$GITHUB_CONTEXT"
