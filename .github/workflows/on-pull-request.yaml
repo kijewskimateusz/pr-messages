@@ -166,15 +166,17 @@ jobs:
     runs-on: ubuntu-latest
     # Map a step output to a job output
     outputs:
-      status: ${{ steps.step1.outputs.job_status }}
+      status: ${{ steps.check-status.outputs.job_status }}
     steps:
-    - id: step0
+    - id: step
       continue-on-error: true
       run: |
         echo foo
         exit 1
-    - id: step1
-      run: echo "job_status='${{ steps.step0.outcome }}'" >> $GITHUB_OUTPUT
+    
+    - name: Check job status
+      id: check-status
+      run: echo "job_status='${{ steps.step.outcome }}'" >> $GITHUB_OUTPUT
     
   bar:
     runs-on: ubuntu-latest
