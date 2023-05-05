@@ -171,7 +171,7 @@ jobs:
         if: steps.step-one.outcome == 'failure' || steps.step-two.outcome == 'failure' || steps.step-three.outcome == 'failure'
         run: exit 1
 
-  job1:
+  job1-o:
     runs-on: ubuntu-latest
     # Map a step output to a job output
     outputs:
@@ -193,4 +193,5 @@ jobs:
     runs-on: ubuntu-latest
     needs: job1
     steps:
-    - run: echo ${{ needs.job1.outputs.status }}
+    - run: echo ${{ needs.job1-o.outputs.status }}
+  
