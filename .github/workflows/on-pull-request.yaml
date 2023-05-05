@@ -98,6 +98,9 @@ jobs:
 
       - name: Print status
         run: echo '${{ steps.step-one.outcome }}' >> $GITHUB_OUTPUT
+
+      - name: Print status
+        run: echo "STATUS='${{ steps.step-one.outcome }}'" >> $GITHUB_OUTPUT
   
   do-something-different:
     name: Do something job
@@ -131,6 +134,9 @@ jobs:
 
       - name: Get context 
         run: echo ${{needs.do-something-more-again.outputs.output1}}
+      
+      - name: Get context 
+        run: echo ${{needs.do-something-more-again.outputs.STATUS}}
       
       # - name: Comment issue
       #   uses: actions/github-script@v6
