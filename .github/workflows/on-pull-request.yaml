@@ -36,16 +36,16 @@ jobs:
           echo Baz
       
       - name: Get context 
-        run: echo "$GITHUB_CONTEXT"
+        run: echo '${{ toJSON(github) }}'
    
       - name: Get result 1
-        run: echo "${{steps.step-one.outputs.result}}"
+        run: echo "${{steps.step-one.outcome}}"
       
       - name: Get result 2
         run: echo "${{steps.step-one.outputs}}"
 
       - name: Get result 3
-        run: echo "${{steps.step-one}}"
+        run: echo "${{steps.step-one.conclusion}}"
 
       - uses: actions/github-script@v6
         id: set-result
