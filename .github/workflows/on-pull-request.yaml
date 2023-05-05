@@ -89,7 +89,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: First step 
+      - name: First step
+        continue-on-error: true 
         id: step-one
         run: |
           echo Foo
