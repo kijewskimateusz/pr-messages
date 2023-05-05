@@ -97,6 +97,7 @@ jobs:
           exit 1
 
       - name: Print status
+        continue-on-error: true 
         run: echo '${{ steps.step-one.outcome }}' >> $GITHUB_OUTPUT
 
       - name: Print status
@@ -111,7 +112,6 @@ jobs:
 
     runs-on: ubuntu-latest
     defaults:
-      run:
         shell: bash
     steps:
       # Checkout the repository to the GitHub Actions runner
