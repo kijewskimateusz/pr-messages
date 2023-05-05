@@ -115,6 +115,16 @@ jobs:
       # Write brief job summary as comment to PR
       - name: Get context 
         run: echo '${{ toJSON(github) }}'
+      
+      - name: Get context 
+        run: echo ${{needs.do-something.result}}
+      
+      - name: Get context 
+        run: echo ${{needs.do-something-more.result}}
+      
+      - name: Get context 
+        run: echo ${{needs.do-something-more-again.result}}
+      
       # - name: Comment issue
       #   uses: actions/github-script@v6
       #   with:
