@@ -113,21 +113,23 @@ jobs:
         with:
           fetch-depth: 0
       # Write brief job summary as comment to PR
-      - name: Comment issue
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const output = `## Feature check
-            #### First check 💼 \`${{ do-something.result }}\`
-            #### Second check 🔑 \`${{ do-something-more.result }}\`
-            #### Third check 🚀 \`${{ do-something-more-again.result }}\`
-            `;
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: output
-            })
+      - name: Get context 
+        run: echo '${{ toJSON(github) }}'
+      # - name: Comment issue
+      #   uses: actions/github-script@v6
+      #   with:
+      #     script: |
+      #       const output = `## Feature check
+      #       #### First check 💼 \`${{ jobs.do-something.result }}\`
+      #       #### Second check 🔑 \`${{ jobs.do-something-more.result }}\`
+      #       #### Third check 🚀 \`${{ jobs.do-something-more-again.result }}\`
+      #       `;
+      #       github.rest.issues.createComment({
+      #         issue_number: context.issue.number,
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         body: output
+      #       })
       
       - name: Check for failed steps
         if: steps.step-one.outcome == 'failure' || steps.step-two.outcome == 'failure' || steps.step-three.outcome == 'failure'
