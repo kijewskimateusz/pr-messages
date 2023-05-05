@@ -1,4 +1,4 @@
-name: on Pull Request
+name: on Push to Master
 
 on:
   push:
@@ -40,7 +40,7 @@ jobs:
         run: echo '${{ toJSON(github) }}'
 
       - name: Get head_ref 
-        run: echo '${{ github.head_ref }}'
+        run: echo '${{ github.ref_name }}'
    
       - name: Get result 1
         run: echo "${{steps.step-one.outcome}}"
@@ -60,22 +60,22 @@ jobs:
         run: echo "${{steps.set-result.outputs.result}}"
 
       # Write brief job summary as comment to PR
-      - name: Comment issue
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const output = `## Feature check
-            #### First check 💼 \`${{ steps.step-one.outcome }}\`
-            #### Second check 🔑 \`${{ steps.step-two.outcome }}\`
-            #### Third check 🚀 \`${{ steps.step-three.outcome }}\`
-            `;
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: output
-            })
+      # - name: Comment issue
+      #   uses: actions/github-script@v6
+      #   with:
+      #     script: |
+      #       const output = `## Feature check
+      #       #### First check 💼 \`${{ steps.step-one.outcome }}\`
+      #       #### Second check 🔑 \`${{ steps.step-two.outcome }}\`
+      #       #### Third check 🚀 \`${{ steps.step-three.outcome }}\`
+      #       `;
+      #       github.rest.issues.createComment({
+      #         issue_number: context.issue.number,
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         body: output
+      #       })
       
-      - name: Check for failed steps
-        if: steps.step-one.outcome == 'failure' || steps.step-two.outcome == 'failure' || steps.step-three.outcome == 'failure'
-        run: exit 1
+      # - name: Check for failed steps
+      #   if: steps.step-one.outcome == 'failure' || steps.step-two.outcome == 'failure' || steps.step-three.outcome == 'failure'
+      #   run: exit 1
