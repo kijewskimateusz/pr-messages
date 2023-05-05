@@ -80,7 +80,7 @@ jobs:
       run:
         shell: bash
     outputs:
-      status: ${{ steps.step-one.outputs.job_status }}
+      status: ${{ steps.one.outputs.job_status }}
     steps:
       # Checkout the repository to the GitHub Actions runner
       - name: Checkout
