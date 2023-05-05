@@ -189,9 +189,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: foo
     steps:
-    - run: echo ${{ toJSON(needs.foo.outputs) }}
-
     - run: echo ${{ needs.foo.outputs.status }}
+    
+    - run: echo ${{ toJSON(needs.foo.outputs) }}
+      continue-on-error: true
+
   
     - name: Comment issue
       uses: actions/github-script@v6
