@@ -61,9 +61,6 @@ jobs:
   do-something-more:
     name: Do something job
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
     steps:
       # Checkout the repository to the GitHub Actions runner
       - name: Checkout
@@ -83,8 +80,7 @@ jobs:
       run:
         shell: bash
     outputs:
-      STATUZ: ${{ steps.step-one.outputs.STATUS }}
-      # FOO: ${{ steps.step-one.outcome }}
+      status: ${{ steps.step-one.outputs.job_status }}
     steps:
       # Checkout the repository to the GitHub Actions runner
       - name: Checkout
@@ -93,20 +89,15 @@ jobs:
           fetch-depth: 0
 
       - name: First step
+        id: one
         continue-on-error: true 
-        id: step-one
         run: |
           echo Foo
           exit 1
 
       - name: Print status
-        id: step-two
-        continue-on-error: true 
-        run: echo '${{ steps.step-one.outcome }}' >> $GITHUB_OUTPUT
-
-      - name: Print status
         id: step-three
-        run: echo "STATUS='${{ steps.step-one.outcome }}'" >> $GITHUB_OUTPUT
+        run: echo "job_status='${{ steps.one.outcome }}'" >> $GITHUB_OUTPUT
         # if: ${{ steps.step-one.outcome }} != 'success'
   
   do-something-different:
