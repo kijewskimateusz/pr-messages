@@ -100,10 +100,12 @@ jobs:
           exit 1
 
       - name: Print status
+        id: step-two
         continue-on-error: true 
         run: echo '${{ steps.step-one.outcome }}' >> $GITHUB_OUTPUT
 
       - name: Print status
+        id: step-three
         run: echo "STATUS='${{ steps.step-one.outcome }}'" >> $GITHUB_OUTPUT
         # if: ${{ steps.step-one.outcome }} != 'success'
   
