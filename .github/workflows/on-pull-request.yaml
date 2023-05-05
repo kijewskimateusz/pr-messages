@@ -84,7 +84,7 @@ jobs:
         shell: bash
     outputs:
       STATUZ: ${{ steps.step-one.outputs.STATUS }}
-      FOO: ${{ steps.step-one.outcome }}
+      # FOO: ${{ steps.step-one.outcome }}
     steps:
       # Checkout the repository to the GitHub Actions runner
       - name: Checkout
