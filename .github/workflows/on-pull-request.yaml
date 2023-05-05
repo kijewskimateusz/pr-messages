@@ -82,6 +82,9 @@ jobs:
     defaults:
       run:
         shell: bash
+    outputs:
+      STATUZ: ${{ steps.step-one.outputs.STATUS }}
+      FOO: ${{ steps.step-one.outcome }}
     steps:
       # Checkout the repository to the GitHub Actions runner
       - name: Checkout
@@ -141,10 +144,10 @@ jobs:
         run: echo ${{toJSON(needs.do-something-more-again.outputs)}}
 
       - name: Get context 
-        run: echo ${{needs.do-something-more-again.outputs.output1}}
+        run: echo ${{needs.do-something-more-again.outputs.FOO}}
       
       - name: Get context 
-        run: echo ${{needs.do-something-more-again.outputs.STATUS}}
+        run: echo ${{needs.do-something-more-again.outputs.STATUZ}}
       
       # - name: Comment issue
       #   uses: actions/github-script@v6
