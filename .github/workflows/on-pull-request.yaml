@@ -39,8 +39,7 @@ jobs:
         run: echo '${{ toJSON(github) }}'
 
       - name: Get head_ref 
-        run: echo {{github.head_ref}}
-
+        run: echo '${{github.head_ref}}'
    
       - name: Get result 1
         run: echo "${{steps.step-one.outcome}}"
