@@ -191,11 +191,11 @@ jobs:
     - name: Comment issue
       uses: actions/github-script@v6
       env:
-          STATUS: ${{ needs.foo.outputs.status }}
+          STAT: ${{ needs.foo.outputs.status }}
           # LAST_NAME: Octocat
       with:
         script: |
-          const { STAT } = process.env
+          const {STAT} = process.env
           const output = `## Feature check
           #### First check 💼 \`${STAT}\`
           `;
