@@ -171,27 +171,38 @@ jobs:
         if: steps.step-one.outcome == 'failure' || steps.step-two.outcome == 'failure' || steps.step-three.outcome == 'failure'
         run: exit 1
 
-  job1-o:
+  foo:
     runs-on: ubuntu-latest
     # Map a step output to a job output
     outputs:
       status: ${{ steps.step1.outputs.job_status }}
-      output2: ${{ steps.step2.outputs.test }}
     steps:
     - id: step0
       continue-on-error: true
       run: |
         echo foo
         exit 1
-    - id: check
-      run: |
-        echo '${{ steps.step0.outcome }}'
     - id: step1
       run: echo "job_status='${{ steps.step0.outcome }}'" >> $GITHUB_OUTPUT
     
-  job2:
+  bar:
     runs-on: ubuntu-latest
-    needs: job1-o
+    needs: foo
     steps:
-    - run: echo ${{ needs.job1-o.outputs.status }}
+    - run: echo ${{ toJSON(needs.foo.outputs) }}
+
+    - run: echo ${{ needs.foo.outputs.status }}
   
+    - name: Comment issue
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const output = `## Feature check
+          #### First check 💼 \`${{ needs.foo.outputs.status }}\`
+          `;
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: output
+          })
