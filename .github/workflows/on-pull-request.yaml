@@ -181,7 +181,10 @@ jobs:
     - id: step0
       run: echo foo
     - id: check
-      run: echo '${{ steps.step0.outcome }}'
+      continue-on-error: true
+      run: |
+        echo '${{ steps.step0.outcome }}'
+        exit 1
     - id: step1
       run: echo "test='${{ steps.check.outcome }}'" >> $GITHUB_OUTPUT
     - id: step2
